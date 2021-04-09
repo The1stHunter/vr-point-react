@@ -15,7 +15,9 @@ import './index.css';
  *			disabledWork, - disabled ли рабочий дни
  *			disabledClean - disabled ли день уборки
  *		}, {...}, {...}, {...}],
- * }} 
+ * }
+ * timetable - main сейчас timetable
+ * } 
  */
 const CalendarBody = (props) => {
 	return (<div className='CalendarBody'>
@@ -24,6 +26,7 @@ const CalendarBody = (props) => {
 		{props.calendarInfo.days.map((item, index) => {
 			return (
 				<CalendarBodyElement
+					timetable={props.timetable}
 					key={index}
 					date={index + 1}
 					dayInfo={item}

@@ -9,14 +9,26 @@ import './index.css';
  * nextMonth, prevMonth - функции переключения календаря
  * onChangeCalendar - функция обрабатывающая изменения в календаре
  * onChangeAlwaysClean - функция обрабатывающая изменения allwaysCleanCheckbox
+ * timetable - main сейчас timetable
  * }
  */
 function CalendarFieldset(props) {
+	let legend = props.timetable ? 'Твой график:' : 'Я хочу работать:';
 	return (
 		<fieldset className="CalendarFieldset">
-			<legend>Я хочу работать:</legend>
-			<CalendarButtonsPlank next={props.nextMonth} prev={props.prevMonth} year={props.calendarInfo.year} month={props.calendarInfo.month} onChangeAlwaysClean={props.onChangeAlwaysClean} />
-			<Calendar calendarInfo={props.calendarInfo} onChange={props.onChangeCalendar} />
+			<legend>{legend}</legend>
+			<CalendarButtonsPlank
+				next={props.nextMonth}
+				prev={props.prevMonth}
+				year={props.calendarInfo.year}
+				month={props.calendarInfo.month}
+				onChangeAlwaysClean={props.onChangeAlwaysClean}
+				timetable={props.timetable}
+			/>
+			<Calendar calendarInfo={props.calendarInfo}
+				onChange={props.onChangeCalendar}
+				timetable={props.timetable}
+			/>
 		</fieldset>
 	);
 }

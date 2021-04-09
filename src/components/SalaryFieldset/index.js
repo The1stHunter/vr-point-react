@@ -3,21 +3,33 @@ import './index.css';
 
 /**
  * Fieldset с зарплатой
- * props = {salary} - зарплата
+ * props = {salary - зарплата
+ * timetable - main сейчас timetable
+ * } 
  */
-const SalaryFieldset = (props) => (
-	<fieldset className='SalaryFieldset'>
-		<legend>Работая в таком графике, ты получишь:</legend>
-		<div>
-			<div className='Salary'>
-				{props.salary}
+function SalaryFieldset(props) {
+	let button;
+	if (!props.timetable) {
+		button = (
+			<div>
+				<button type='submit'>Готово</button>
 			</div>
-			<span>руб.</span>
-		</div>
-		<div>
-			<button type='submit'>Готово</button>
-		</div>
-	</fieldset>
-);
+		);
+	}
+	return (
+		<fieldset className='SalaryFieldset'>
+			<legend>Работая в таком графике, ты получишь:</legend>
+			<div>
+				<div className='Salary'>
+					{props.salary}
+				</div>
+				<span>руб.</span>
+			</div>
+			{button}
+		</fieldset>
+	);
+
+
+}
 
 export default SalaryFieldset;

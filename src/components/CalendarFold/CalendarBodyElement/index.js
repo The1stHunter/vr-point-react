@@ -23,6 +23,7 @@ function CalendarBodyElement(props) {
 				className='date-checkbox'
 				data-date={props.date}
 				onChange={props.onChange}
+				readOnly={props.timetable}
 			/>
 
 			<label
@@ -41,6 +42,7 @@ function CalendarBodyElement(props) {
 				className='cleaning-checkbox'
 				data-date={props.date}
 				onChange={props.onChange}
+				readOnly={props.timetable}
 			/>
 
 			<label

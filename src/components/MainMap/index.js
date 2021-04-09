@@ -3,7 +3,7 @@ import CalendarFieldset from '../CalendarFold/CalendarFieldset';
 import SalaryFieldset from '../SalaryFieldset';
 import './index.css';
 
-class Main extends React.Component {
+class MainMap extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -138,7 +138,7 @@ class Main extends React.Component {
 	}
 }
 
-export default Main;
+export default MainMap;
 
 
 /**

@@ -10,7 +10,7 @@ import './index.css';
 const Calendar = (props) => (
 	<div className='Calendar'>
 		<CalendarHeader />
-		<CalendarBody calendarInfo={props.calendarInfo} onChange={props.onChange} />
+		<CalendarBody calendarInfo={props.calendarInfo} onChange={props.onChange} timetable={props.timetable} />
 	</div>
 );
 
