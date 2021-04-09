@@ -1,0 +1,9 @@
+.CalendarButtonsPlank {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.CalendarButtonsPlank input {
+	cursor: pointer;
+}

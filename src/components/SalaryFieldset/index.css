@@ -1,0 +1,15 @@
+.SalaryFieldset {
+	display: flex;
+	justify-content: space-between;
+}
+
+.Salary {
+	display: inline-block;
+	text-align: right;
+	padding: 0 2px;
+	margin-right: 5px;
+	min-width: 40px;
+	border: 1px groove threedface;
+	background-color: rgb(240, 240, 240);
+	color: gray;
+}

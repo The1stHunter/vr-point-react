@@ -1,0 +1,28 @@
+.CalendarBodyElement {
+	text-align: center;
+	position: relative;
+}
+
+.CalendarBodyElement label {
+	cursor: pointer;
+	display: block;
+}
+
+.cleaning-label {
+	display: inline;
+	position: absolute;
+	right: 2px;
+	top: 0;
+}
+
+.CalendarBodyElement input:disabled + label {
+	color: lightgray;
+}
+
+.CalendarBodyElement input:checked + label {
+	background-color: lightgreen;
+}
+
+.CalendarBodyElement input:checked + .cleaning-label {
+	background-color: green;
+}

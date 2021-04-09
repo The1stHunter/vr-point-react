@@ -1,0 +1,9 @@
+.CalendarHeader {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+}
+
+.CalendarHeader > * {
+	border: 1px dashed black;
+	text-align: center;
+}

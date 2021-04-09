@@ -1,0 +1,8 @@
+.CalendarBody {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+}
+
+.CalendarBody > * {
+	border: 1px dashed black;
+}
