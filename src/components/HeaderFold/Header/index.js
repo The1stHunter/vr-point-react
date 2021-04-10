@@ -8,19 +8,18 @@ import './index.css'
  * Header
  * props = {
  * onClickNav - обработчик клика по навигации
+ * user - имя и фамилия пользователя
  * }
  */
-class Header extends React.Component {
-
-	render() {
-		return (
-			<header className='Header'>
-				<Logo />
-				<User />
-				<Navigation onClick={this.props.onClickNav} />
-			</header>
-		);
-	}
+function Header(props) {
+	return (
+		<header className='Header'>
+			<Logo />
+			<User user={props.user} />
+			<Navigation onClick={props.onClickNav} />
+		</header>
+	);
 }
+
 
 export default Header
