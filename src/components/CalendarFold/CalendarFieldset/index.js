@@ -11,6 +11,7 @@ import './index.css';
  * onChangeAlwaysClean - функция обрабатывающая изменения allwaysCleanCheckbox
  * timetable - main сейчас timetable
  * onChangeCalendarHeader - клик по дням недели
+ * weekdaysChecked - список всех выделенных дней недели
  * }
  */
 function CalendarFieldset(props) {
@@ -30,6 +31,7 @@ function CalendarFieldset(props) {
 				onChange={props.onChangeCalendar}
 				timetable={props.timetable}
 				onChangeCalendarHeader={props.onChangeCalendarHeader}
+				weekdaysChecked={props.weekdaysChecked}
 			/>
 		</fieldset>
 	);

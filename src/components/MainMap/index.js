@@ -12,6 +12,7 @@ class MainMap extends React.Component {
 			calendarInfo: cashedCreateCalendarProps(now.getMonth(), now.getFullYear()),
 			salary: this.countSalary(cashedCreateCalendarProps(now.getMonth(), now.getFullYear()).days),
 			alwaysClean: false,
+			weekdaysChecked: Array(7).fill(false),
 		}
 
 		this.nextMonth = this.nextMonth.bind(this);
@@ -97,13 +98,16 @@ class MainMap extends React.Component {
 					newState.calendarInfo.days[index].selectedWork = !newState.calendarInfo.days[index].selectedWork;
 					if (newState.calendarInfo.days[index].selectedWork) {
 						newState.calendarInfo.days[index].disabledClean = false;
-						if (this.state.alwaysClean) {
+						if (newState.alwaysClean) {
 							newState.calendarInfo.days[index].selectedClean = true;
 							newState.calendarInfo.days[index].disabledClean = true;
 						}
 					} else {
 						newState.calendarInfo.days[index].disabledClean = true;
 						newState.calendarInfo.days[index].selectedClean = false;
+						// Если был выбран день недели, то выключаем его
+						let weekday = (new Date(newState.calendarInfo.year, newState.calendarInfo.month, index + 1).getDay() || 7) - 1;
+						newState.weekdaysChecked[weekday] = false;
 					}
 					newState.salary = this.countSalary(newState.calendarInfo.days);
 					return newState;
@@ -124,20 +128,21 @@ class MainMap extends React.Component {
 	}
 
 	// При клике по названию дня недели выбирает все дни это дня недели
-	//TODO: сделать управляемым компоненом
 	handlerChangeCalendarHeader(e) {
 		let target = e.target;
 		let weekday = target.dataset.weekday;
 		if (!weekday) { return; } // Пользователь попал по границе элементов
 
-		weekday = weekday % 7; // Превращаем 7 в 0 для работы с Date
-		let fidstDayWeekday = new Date(this.state.calendarInfo.year, this.state.calendarInfo.month).getDay(); // день недели первого дня месяца
 
-		let changeDay = (weekday + fidstDayWeekday) % 7; // Это остаток от деления на 7 тех дат, которые соответствут выбранному дню недели
+		this.setState((state) => {
+			let newState = Object.assign({}, state);
+			newState.weekdaysChecked[weekday - 1] = !state.weekdaysChecked[weekday - 1];
 
-		if (target.checked) {
-			this.setState((state) => {
-				let newState = Object.assign({}, state);
+			weekday = weekday % 7; // Превращаем 7 в 0 для работы с Date
+			let fidstDayWeekday = new Date(this.state.calendarInfo.year, this.state.calendarInfo.month).getDay(); // день недели первого дня месяца
+			let changeDay = (weekday + fidstDayWeekday) % 7; // Это остаток от деления на 7 тех дат, которые соответствут выбранному дню недели
+
+			if (target.checked) {
 				newState.calendarInfo.days = state.calendarInfo.days.map((day, index) => {
 					if ((index + 1) % 7 !== changeDay) { return day; }
 					let newDay = Object.assign({}, day);
@@ -147,25 +152,21 @@ class MainMap extends React.Component {
 					}
 					return newDay;
 				});
-				newState.salary = this.countSalary(newState.calendarInfo.days);
-				return newState;
-			});
-		} else {
-			this.setState((state) => {
-				let newState = Object.assign({}, state);
+			} else {
 				newState.calendarInfo.days = state.calendarInfo.days.map((day, index) => {
 					if ((index + 1) % 7 !== changeDay) { return day; }
 					let newDay = Object.assign({}, day);
 					if (!newDay.disabledWork) {
 						newDay.selectedWork = false;
 						newDay.selectedClean = false;
+						newDay.disabledClean = true;
 					}
 					return newDay;
 				});
-				newState.salary = this.countSalary(newState.calendarInfo.days);
-				return newState;
-			});
-		}
+			}
+			newState.salary = this.countSalary(newState.calendarInfo.days);
+			return newState;
+		});
 	}
 
 
@@ -180,6 +181,7 @@ class MainMap extends React.Component {
 					onChangeCalendar={this.handlerChangeCalendar}
 					onChangeAlwaysClean={this.handlerChangeAlwaysClean}
 					onChangeCalendarHeader={this.handlerChangeCalendarHeader}
+					weekdaysChecked={this.state.weekdaysChecked}
 				/>
 				<SalaryFieldset salary={this.state.salary} />
 			</main>

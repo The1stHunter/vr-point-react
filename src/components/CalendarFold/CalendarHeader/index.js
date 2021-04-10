@@ -3,41 +3,25 @@ import './index.css';
 
 // props = {
 // onChange
-// timetable}
+// timetable
+// weekdaysChecked - список всех выделенных дней недели
+// }
 const CalendarHeader = (props) => {
 	if (!props.timetable) {
+		const weekdays = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
 		return (
-			<div className='CalendarHeader' onChange={props.onChange}>
-				<div>
-					<input data-weekday='1' type='checkbox' id='mon-checkbox' hidden></input>
-					<label htmlFor="mon-checkbox">ПН</label>
-				</div>
-				<div>
-					<input data-weekday='2' type='checkbox' id='tue-checkbox' hidden></input>
-					<label htmlFor="tue-checkbox">ВТ</label>
-				</div>
-				<div>
-					<input data-weekday='3' type='checkbox' id='wed-checkbox' hidden></input>
-					<label htmlFor="wed-checkbox">СР</label>
-				</div>
-				<div>
-					<input data-weekday='4' type='checkbox' id='thu-checkbox' hidden></input>
-					<label htmlFor="thu-checkbox">ЧТ</label>
-				</div>
-				<div>
-					<input data-weekday='5' type='checkbox' id='fri-checkbox' hidden></input>
-					<label htmlFor="fri-checkbox">ПТ</label>
-				</div>
-				<div>
-					<input data-weekday='6' type='checkbox' id='sat-checkbox' hidden></input>
-					<label htmlFor="sat-checkbox">СБ</label>
-				</div>
-				<div>
-					<input data-weekday='7' type='checkbox' id='sun-checkbox' hidden></input>
-					<label htmlFor="sun-checkbox">ВС</label>
-				</div>
+			<div className='CalendarHeader'>
+				{weekdays.map((weekday, index) => {
+					return (
+						<div key={index + 1}>
+							<input data-weekday={index + 1} type='checkbox' id={'weekday-ckeckbox-' + (index + 1)} hidden checked={props.weekdaysChecked[index]} onChange={props.onChange}></input>
+							<label htmlFor={'weekday-ckeckbox-' + (index + 1)}>{weekday}</label>
+						</div>
+					);
+				})}
 			</div>
-		)
+		);
+
 	} else {
 		return (
 			<div className='CalendarHeader'>
