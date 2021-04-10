@@ -5,11 +5,13 @@ import './index.css';
 
 /**
  * Весь каледнарь
- * props = {calendarInfo} - информация о текущем месяце
+ * props = {calendarInfo - информация о текущем месяце
+ * onChangeCalendarHeader - обработчик клика по дням недели
+ * } 
  */
 const Calendar = (props) => (
 	<div className='Calendar'>
-		<CalendarHeader />
+		<CalendarHeader onChange={props.onChangeCalendarHeader} timetable={props.timetable} />
 		<CalendarBody calendarInfo={props.calendarInfo} onChange={props.onChange} timetable={props.timetable} />
 	</div>
 );

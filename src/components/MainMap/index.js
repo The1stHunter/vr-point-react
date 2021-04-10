@@ -18,6 +18,7 @@ class MainMap extends React.Component {
 		this.prevMonth = this.prevMonth.bind(this);
 		this.handlerChangeCalendar = this.handlerChangeCalendar.bind(this);
 		this.handlerChangeAlwaysClean = this.handlerChangeAlwaysClean.bind(this);
+		this.handlerChangeCalendarHeader = this.handlerChangeCalendarHeader.bind(this);
 	}
 
 	// Изменение checkbox уборки (правый верхний угол)
@@ -122,6 +123,53 @@ class MainMap extends React.Component {
 		}
 	}
 
+	// При клике по названию дня недели выбирает все дни это дня недели
+	//TODO: сделать управляемым компоненом
+	handlerChangeCalendarHeader(e) {
+		let target = e.target;
+		let weekday = target.dataset.weekday;
+		if (!weekday) { return; } // Пользователь попал по границе элементов
+
+		weekday = weekday % 7; // Превращаем 7 в 0 для работы с Date
+		let fidstDayWeekday = new Date(this.state.calendarInfo.year, this.state.calendarInfo.month).getDay(); // день недели первого дня месяца
+
+		let changeDay = (weekday + fidstDayWeekday) % 7; // Это остаток от деления на 7 тех дат, которые соответствут выбранному дню недели
+
+		if (target.checked) {
+			this.setState((state) => {
+				let newState = Object.assign({}, state);
+				newState.calendarInfo.days = state.calendarInfo.days.map((day, index) => {
+					if ((index + 1) % 7 !== changeDay) { return day; }
+					let newDay = Object.assign({}, day);
+					if (!newDay.disabledWork) {
+						newDay.selectedWork = true;
+						if (state.alwaysClean) { newDay.selectedClean = true; }
+					}
+					return newDay;
+				});
+				newState.salary = this.countSalary(newState.calendarInfo.days);
+				return newState;
+			});
+		} else {
+			this.setState((state) => {
+				let newState = Object.assign({}, state);
+				newState.calendarInfo.days = state.calendarInfo.days.map((day, index) => {
+					if ((index + 1) % 7 !== changeDay) { return day; }
+					let newDay = Object.assign({}, day);
+					if (!newDay.disabledWork) {
+						newDay.selectedWork = false;
+						newDay.selectedClean = false;
+					}
+					return newDay;
+				});
+				newState.salary = this.countSalary(newState.calendarInfo.days);
+				return newState;
+			});
+		}
+	}
+
+
+
 	render() {
 		return (
 			<main className='Main'>
@@ -131,6 +179,7 @@ class MainMap extends React.Component {
 					prevMonth={this.prevMonth}
 					onChangeCalendar={this.handlerChangeCalendar}
 					onChangeAlwaysClean={this.handlerChangeAlwaysClean}
+					onChangeCalendarHeader={this.handlerChangeCalendarHeader}
 				/>
 				<SalaryFieldset salary={this.state.salary} />
 			</main>

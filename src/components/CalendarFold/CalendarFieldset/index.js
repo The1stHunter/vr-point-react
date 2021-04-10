@@ -10,6 +10,7 @@ import './index.css';
  * onChangeCalendar - функция обрабатывающая изменения в календаре
  * onChangeAlwaysClean - функция обрабатывающая изменения allwaysCleanCheckbox
  * timetable - main сейчас timetable
+ * onChangeCalendarHeader - клик по дням недели
  * }
  */
 function CalendarFieldset(props) {
@@ -28,6 +29,7 @@ function CalendarFieldset(props) {
 			<Calendar calendarInfo={props.calendarInfo}
 				onChange={props.onChangeCalendar}
 				timetable={props.timetable}
+				onChangeCalendarHeader={props.onChangeCalendarHeader}
 			/>
 		</fieldset>
 	);

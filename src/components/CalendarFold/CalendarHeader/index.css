@@ -7,3 +7,12 @@
 	border: 1px dashed black;
 	text-align: center;
 }
+
+.CalendarHeader label {
+	display: block;
+	cursor: pointer;
+}
+
+.CalendarHeader input:checked + label {
+	background-color: lightgreen;
+}
