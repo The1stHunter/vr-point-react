@@ -1,0 +1,19 @@
+.User {
+	padding: 5px;
+	border-radius: 10px;
+	background-color: #E1CFD3;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.avatar {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%; 
+	background-color: gray; /*TODO после добавления аватара убрать */
+}
+
+.User div {
+	display: inline-block;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import MainMap from '../MainMap';
 import MainTimetable from '../MainTimetable';
-import Navigation from '../Navigation';
+import Header from '../Header';
 import { Helmet } from 'react-helmet';
 import './index.css';
 
@@ -41,7 +41,7 @@ class App extends React.Component {
 		return (
 			<div className='App'>
 				<Helmet title={this.state.title} />
-				<Navigation onChange={this.handlerChangeMain} />
+				<Header onClickNav={this.handlerChangeMain} />
 				{main}
 			</div>
 		);

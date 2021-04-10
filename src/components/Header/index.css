@@ -1,0 +1,7 @@
+.Header {
+	background-color: #B77BBD;
+	padding: 8px;
+	padding-bottom: 0;
+	display: grid;
+	grid-template-columns: 3fr 1fr;
+}

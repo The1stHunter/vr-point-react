@@ -4,12 +4,12 @@ import './index.css';
 /**
  * Навигация
  * props = {
- * onChange - функция изменения текущец вкладки
+ * onClick - функция изменения текущец вкладки
  * }
  */
 function Navigation(props) {
 	return (
-		<ul className='Navigation' onClick={props.onChange}>
+		<ul className='Navigation' onClick={props.onClick}>
 			<li data-link='map'>Карта возможности</li>
 			<li data-link='timetable'>График</li>
 		</ul>
