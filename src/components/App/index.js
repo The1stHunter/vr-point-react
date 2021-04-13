@@ -2,7 +2,6 @@ import React from 'react';
 import MainMap from '../MainMap';
 import MainTimetable from '../MainTimetable';
 import Header from '../HeaderFold/Header';
-import LoginForm from '../LoginForm';
 import { Helmet } from 'react-helmet';
 import './index.css';
 
@@ -11,11 +10,12 @@ class App extends React.Component {
 		super(props);
 
 		this.state = {
-			main: 'login',
-			title: 'Вход',
+			main: 'timetable',
+			title: 'График',
 			name: '',
 			surname: '',
 			isAdmin: '',
+			login: '',
 		}
 
 		this.handlerChangeMainNav = this.handlerChangeMainNav.bind(this);
@@ -42,6 +42,7 @@ class App extends React.Component {
 		this.setState({
 			main: 'map',
 			title: 'Карта возможности',
+			login: user.login,
 			name: user.name,
 			surname: user.surname,
 			isAdmin: user.admin,
@@ -55,14 +56,11 @@ class App extends React.Component {
 		switch (this.state.main) {
 			case 'map':
 				header = (<Header onClickNav={this.handlerChangeMainNav} user={this.state.name + ' ' + this.state.surname} />);
-				main = (<MainMap />);
+				main = (<MainMap isAdmin={this.state.isAdmin} />);
 				break;
 			case 'timetable':
 				header = (<Header onClickNav={this.handlerChangeMainNav} user={this.state.name + ' ' + this.state.surname} />);
-				main = (<MainTimetable />);
-				break;
-			case 'login':
-				main = (<LoginForm onSumbit={this.handletSubmitLogin} />);
+				main = (<MainTimetable login={this.state.login} />);
 				break;
 			default:
 				break;
@@ -78,24 +76,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-
-// TODO:
-// NB!!!!!
-// Все функции являются заглушками, так как серверная часть ещё не готова
-
-function login(username, password) {
-	if (username === 'guest' && password === '123') {
-		return {
-			name: 'Константин',
-			surname: 'Шилов',
-			admin: false,
-		}
-	} else if (username === 'admin' && password === 'admin') {
-		return {
-			name: 'Анна',
-			surname: 'Жданова',
-			admin: true,
-		}
-	}
-}

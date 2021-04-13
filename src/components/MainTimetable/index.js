@@ -1,8 +1,14 @@
 import React from 'react';
 import CalendarFieldset from '../CalendarFold/CalendarFieldset';
 import SalaryFieldset from '../SalaryFieldset';
+import ReplaceForm from '../ReplaceFrom';
 import './index.css';
 
+/**
+ * props = {
+ * login - логин текущего пользователя
+ * }
+ */
 class MainTimetable extends React.Component {
 	constructor(props) {
 		super(props);
@@ -11,10 +17,14 @@ class MainTimetable extends React.Component {
 		this.state = {
 			calendarInfo: cashedCreateCalendarProps(now.getMonth(), now.getFullYear()),
 			salary: this.countSalary(cashedCreateCalendarProps(now.getMonth(), now.getFullYear()).days),
+			replaceForm: false,
+			clickDate: null,
 		}
 
 		this.nextMonth = this.nextMonth.bind(this);
 		this.prevMonth = this.prevMonth.bind(this);
+		this.handlerClickDate = this.handlerClickDate.bind(this);
+		this.handlerClickClose = this.handlerClickClose.bind(this);
 	}
 
 	// Функции переключения месяца
@@ -54,7 +64,24 @@ class MainTimetable extends React.Component {
 		}, 0);
 	}
 
+	handlerClickDate(e) {
+		let target = e.target;
+		let date = target.dataset.date;
+		if (this.state.calendarInfo.days[date - 1].selectedWork) {
+			this.setState({
+				replaceForm: true,
+				clickDate: `${date}-${this.state.calendarInfo.month}-${this.state.calendarInfo.year}`,
+			});
+		}
+	}
+
+	handlerClickClose(e) {
+		this.setState({ replaceForm: false, });
+	}
+
 	render() {
+		let replaceForm;
+		if (this.state.replaceForm) { replaceForm = (<ReplaceForm login={this.props.login} clickDate={this.state.clickDate} onClickClose={this.handlerClickClose} />); }
 		return (
 			<main className='MainTimetable'>
 				<CalendarFieldset
@@ -62,7 +89,9 @@ class MainTimetable extends React.Component {
 					nextMonth={this.nextMonth}
 					prevMonth={this.prevMonth}
 					timetable={true}
+					onClickTimetable={this.handlerClickDate}
 				/>
+				{replaceForm}
 				<SalaryFieldset salary={this.state.salary} timetable={true} />
 			</main>
 		);
@@ -81,7 +110,7 @@ export default MainTimetable;
 function createCalendarProps(month, year) {
 	let maxDate = new Date(year, month + 1, 0).getDate(); //Полседнее число месяца (кол-во дней в месяце)
 	let days = Array(maxDate).fill(null).map((value, index) => index); // список дней месяца
-	let selectedWork = []; //TODO: запрос к серверу
+	let selectedWork = [2, 3, 5, 10, 23]; //TODO: запрос к серверу
 	let selectedClean = []; //TODO: запрос к серверу
 
 	let objectDays = days.map(value => {

@@ -17,7 +17,8 @@ import './index.css';
  *		}, {...}, {...}, {...}],
  * }
  * timetable - main сейчас timetable
- * } 
+ * onClickTimetable
+ * }
  */
 const CalendarBody = (props) => {
 	return (<div className='CalendarBody'>
@@ -31,6 +32,7 @@ const CalendarBody = (props) => {
 					date={index + 1}
 					dayInfo={item}
 					onChange={props.onChange}
+					onClick={props.onClickTimetable}
 				/>
 			);
 		}

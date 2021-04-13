@@ -8,6 +8,7 @@ import './index.css';
  * year, month - год и месяц
  * onChangeAlwaysClean - функция обрабатывающая изменения allwaysCleanCheckbox
  * timetable - main сейчас timetable
+ * isAdmin
  * }
  */
 const CalendarButtonsPlank = (props) => {
@@ -22,6 +23,17 @@ const CalendarButtonsPlank = (props) => {
 			</div>
 		);
 	}
+
+	let adminMode;
+	if (!props.timetable && props.isAdmin) {
+		adminMode = (
+			<div>
+				<label htmlFor='admin-checkbox'>Режим администратора</label>
+				<input type='checkbox' id='admin-checkbox' onChange={props.onChangeAdminMode}></input>
+			</div>
+		);
+	}
+
 	return (
 		<div className='CalendarButtonsPlank'>
 			<div>
@@ -30,6 +42,7 @@ const CalendarButtonsPlank = (props) => {
 				<CalendarButton text={<i className="fas fa-chevron-right"></i>} onСlick={props.next} />
 			</div>
 			{button}
+			{adminMode}
 		</div>
 	)
 };

@@ -12,6 +12,8 @@ import './index.css';
  * timetable - main сейчас timetable
  * onChangeCalendarHeader - клик по дням недели
  * weekdaysChecked - список всех выделенных дней недели
+ * onClickTimetable - обработичк клика по календарю графика
+ * isAdmin - является ли пользователь админом
  * }
  */
 function CalendarFieldset(props) {
@@ -26,12 +28,14 @@ function CalendarFieldset(props) {
 				month={props.calendarInfo.month}
 				onChangeAlwaysClean={props.onChangeAlwaysClean}
 				timetable={props.timetable}
+				isAdmin={props.isAdmin}
 			/>
 			<Calendar calendarInfo={props.calendarInfo}
 				onChange={props.onChangeCalendar}
 				timetable={props.timetable}
 				onChangeCalendarHeader={props.onChangeCalendarHeader}
 				weekdaysChecked={props.weekdaysChecked}
+				onClickTimetable={props.onClickTimetable}
 			/>
 		</fieldset>
 	);

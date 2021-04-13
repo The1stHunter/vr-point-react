@@ -9,11 +9,12 @@ import './index.css';
  *  selectedClean, - выбран ли день уборки
  *	disabledWork, - disabled ли рабочий дни
  *	disabledClean - disabled ли день уборки
- *		}} - активна ли ячейка;
+ *		onClick
+}} - активна ли ячейка;
  */
 function CalendarBodyElement(props) {
 	return (
-		<div className='CalendarBodyElement'>
+		<div className='CalendarBodyElement' >
 			<input
 				type='checkbox'
 				id={'date-checkbox-' + props.date}
@@ -24,6 +25,7 @@ function CalendarBodyElement(props) {
 				data-date={props.date}
 				onChange={props.onChange}
 				readOnly={props.timetable}
+				onClick={props.onClick}
 			/>
 
 			<label

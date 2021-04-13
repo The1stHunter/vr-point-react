@@ -1,0 +1,46 @@
+.ReplaceForm {
+	width: 300px;
+	border: 2px groove black;
+	padding: 5px 0 0;
+	position: absolute;
+	left: 50%;
+	margin-left: -150px;
+	top: 50%;
+	margin-top: -150px;
+	background-color: white;
+}
+
+.ReplaceForm .close{
+	color: red;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	cursor: pointer;
+}
+
+.ReplaceForm p {
+	text-align: center;
+	font-size: 20px;
+}
+
+.ReplaceForm ul {
+	list-style: none;
+	margin-bottom: 0;
+}
+
+.ReplaceForm a {
+	text-decoration: none;
+	color: black;
+}
+
+.ReplaceForm p + ul {
+	padding-left: 0;
+}
+
+.ReplaceForm p + ul > li:first-child {
+	background-color: lightgreen;
+}
+
+.ReplaceForm p + ul > li:last-child {
+	background-color: lightpink;
+}

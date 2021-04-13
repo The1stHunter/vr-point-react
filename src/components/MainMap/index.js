@@ -3,6 +3,12 @@ import CalendarFieldset from '../CalendarFold/CalendarFieldset';
 import SalaryFieldset from '../SalaryFieldset';
 import './index.css';
 
+
+/**
+ * props = {
+ * isAdmin - является ли пользователь администратором
+ * }
+ */
 class MainMap extends React.Component {
 	constructor(props) {
 		super(props);
@@ -182,6 +188,7 @@ class MainMap extends React.Component {
 					onChangeAlwaysClean={this.handlerChangeAlwaysClean}
 					onChangeCalendarHeader={this.handlerChangeCalendarHeader}
 					weekdaysChecked={this.state.weekdaysChecked}
+					isAdmin={this.props.isAdmin}
 				/>
 				<SalaryFieldset salary={this.state.salary} />
 			</main>
