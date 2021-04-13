@@ -17,32 +17,21 @@ const CalendarButtonsPlank = (props) => {
 	let button;
 	if (!props.timetable) {
 		button = (
-			<div>
-				<label htmlFor='auto-clean-checkbox'>Хочу убираться во все рабочие дни</label>
+			<div className='cleanTypeSelector'>
 				<input type='checkbox' id='auto-clean-checkbox' onChange={props.onChangeAlwaysClean}></input>
-			</div>
-		);
-	}
-
-	let adminMode;
-	if (!props.timetable && props.isAdmin) {
-		adminMode = (
-			<div>
-				<label htmlFor='admin-checkbox'>Режим администратора</label>
-				<input type='checkbox' id='admin-checkbox' onChange={props.onChangeAdminMode}></input>
+				<label htmlFor='auto-clean-checkbox'><span>Хочу убираться</span><span>во все рабочие дни</span></label>
 			</div>
 		);
 	}
 
 	return (
 		<div className='CalendarButtonsPlank'>
-			<div>
-				<CalendarButton text={<i className="fas fa-chevron-left"></i>} onСlick={props.prev} />
+			<div className='monthSelector'>
+				<CalendarButton text={<i className="fas fa-chevron-left"></i>} onClick={props.prev} />
 				<span>{months[props.month] + ' ' + props.year}</span>
-				<CalendarButton text={<i className="fas fa-chevron-right"></i>} onСlick={props.next} />
+				<CalendarButton text={<i className="fas fa-chevron-right"></i>} onClick={props.next} />
 			</div>
 			{button}
-			{adminMode}
 		</div>
 	)
 };

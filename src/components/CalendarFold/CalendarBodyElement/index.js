@@ -8,9 +8,11 @@ import './index.css';
  *  selectedClean, - выбран ли день уборки
  *  today - является ли день сегодняшним
  *  readonly - является ли дата readonly
+ *  allwaysClean - состояние флага allwaysClean
 }
  */
 function CalendarBodyElement(props) {
+
 	let className = 'CalendarBodyElement ' + (props.today ? 'today' : '');
 	let hiddenCleanClass = !props.selectedWork ? 'hidden' : ''; // когда день не выбран как рабочий, убираться нельзя
 
@@ -41,8 +43,8 @@ function CalendarBodyElement(props) {
 				checked={props.selectedClean}
 				className='cleaning-checkbox'
 				data-date={props.date}
-				readOnly={props.readonly}
-				onChange={props.onChange}
+				readOnly={props.readonly || props.allwaysClean}
+				onChange={(!props.readonly && !props.allwaysClean) ? props.onChange : null}
 			/>
 
 			<label

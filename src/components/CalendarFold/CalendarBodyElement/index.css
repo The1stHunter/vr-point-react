@@ -1,5 +1,5 @@
 .CalendarBodyElement {
-	width: auto;
+	max-width: 150px;
 	height: 90px;
 	position: relative;
 	overflow: hidden; /* label очень любит вылезать за границы */
@@ -31,6 +31,7 @@
 	background-size: 40px 40px;
 }
 
+/* TODO: при максимальном размере граница ячейки справа не совпадает*/
 .today {
 	border: 2px solid #600580 !important;
 	height: 92px;

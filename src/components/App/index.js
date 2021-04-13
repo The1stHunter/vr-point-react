@@ -1,5 +1,5 @@
 import React from 'react';
-import MainMap from '../MainMap';
+import MainCalendar from '../MainCalendar';
 import MainTimetable from '../MainTimetable';
 import Header from '../HeaderFold/Header';
 import { Helmet } from 'react-helmet';
@@ -10,7 +10,7 @@ class App extends React.Component {
 		super(props);
 
 		this.state = {
-			main: 'map',
+			main: 'timetable',
 			title: 'График',
 		}
 
@@ -31,10 +31,10 @@ class App extends React.Component {
 		let header = (<Header onClickNav={this.handlerChangeMainNav} main={this.state.main} />);
 		switch (this.state.main) {
 			case 'map':
-				main = (<MainMap />);
+				main = (<MainCalendar timetable={false} />);
 				break;
 			case 'timetable':
-				main = (<MainTimetable />);
+				main = (<MainCalendar timetable={true} />);
 				break;
 			default:
 				break;

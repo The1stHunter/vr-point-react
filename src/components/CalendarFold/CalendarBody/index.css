@@ -1,4 +1,6 @@
 .CalendarBody {
+	max-width: 1050px;
+	margin: auto;
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
 }

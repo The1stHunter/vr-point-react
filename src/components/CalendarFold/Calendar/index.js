@@ -16,9 +16,11 @@ import './index.css';
  * nextMonth, prevMonth - функции переключения календаря
  * onChangeCalendar - функция обрабатывающая изменения в календаре
  * onChangeAlwaysClean - функция обрабатывающая изменения allwaysCleanCheckbox
+ * allwaysClean - состояния флага allwaysClean
  * }
  */
 function CalendarFieldset(props) {
+
 	return (
 		<div className="CalendarFieldset">
 			<CalendarButtonsPlank
@@ -33,6 +35,7 @@ function CalendarFieldset(props) {
 				daysBefore={props.daysBefore}
 				daysAfter={props.daysAfter}
 				days={props.days}
+				allwaysClean={props.allwaysClean}
 				onChange={props.onChangeCalendar}
 			/>
 		</div>

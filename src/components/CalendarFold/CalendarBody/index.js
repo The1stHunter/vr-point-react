@@ -13,7 +13,7 @@ import './index.css';
  *			today, - является ли день сегодняшним
  *          readonly, - можно ли измегять этот день
  *		}, {...}, {...}, {...}],
- * }
+ * allwaysClean - флаг allwaysClean
  * }
  */
 const CalendarBody = (props) => {
@@ -31,6 +31,7 @@ const CalendarBody = (props) => {
 					selectedClean={item.selectedClean}
 					today={item.today}
 					readonly={item.readonly}
+					allwaysClean={props.allwaysClean}
 					onChange={props.onChange}
 				/>
 			);

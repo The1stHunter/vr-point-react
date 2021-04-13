@@ -2,8 +2,33 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	margin-top: 20px;
+	margin-bottom: 5px;
 }
 
 .CalendarButtonsPlank input {
 	cursor: pointer;
+}
+
+.monthSelector {
+	font-size: 26px;
+	vertical-align: middle;
+}
+
+.cleanTypeSelector {
+	display: flex;
+	align-items: center;
+}
+
+.cleanTypeSelector input {
+	width: 30px;
+	height: 30px;
+	outline: 2px solid rgba(96, 5, 128, 0.66);
+}
+
+.cleanTypeSelector label {
+	margin-left: 3px;
+	font-size: 10px;
+	display: flex;
+	flex-direction: column;
 }
