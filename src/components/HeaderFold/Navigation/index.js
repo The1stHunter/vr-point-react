@@ -19,9 +19,9 @@ function Navigation(props) {
 
 	return (
 		<ul className='Navigation' onClick={props.onClick}>
-			<li data-link='timetable' className={activeLink['timetable'] ? 'this' : ''} >График работы</li>
-			<li data-link='map' className={activeLink['map'] ? 'this' : ''}>Планирование смен</li>
-			<li data-link='change' className={activeLink['change'] ? 'this' : ''}>Обмен сменами</li>
+			<li data-link='timetable' className={activeLink['timetable'] ? 'this' : ''} ><span>График работы</span></li>
+			<li data-link='map' className={activeLink['map'] ? 'this' : ''}><span>Планирование смен</span></li>
+			<li data-link='change' className={activeLink['change'] ? 'this' : ''}><span>Обмен сменами</span></li>
 		</ul>
 	);
 }

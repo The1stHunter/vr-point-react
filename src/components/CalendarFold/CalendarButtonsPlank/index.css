@@ -4,6 +4,7 @@
 	align-items: center;
 	margin-top: 20px;
 	margin-bottom: 5px;
+	min-height: 40px;
 }
 
 .CalendarButtonsPlank input {
@@ -23,7 +24,7 @@
 .cleanTypeSelector input {
 	width: 30px;
 	height: 30px;
-	outline: 2px solid rgba(96, 5, 128, 0.66);
+	outline: 1px solid rgba(96, 5, 128, 0.66);
 }
 
 .cleanTypeSelector label {

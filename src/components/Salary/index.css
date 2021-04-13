@@ -1,6 +1,9 @@
-.SalaryFieldset {
+.SalaryDiv {
 	display: flex;
 	justify-content: space-between;
+	max-width: 250px;
+	border: 4px solid rgba(96, 5, 128, 0.3);
+	padding: 10px;
 }
 
 .Salary {
@@ -9,7 +12,4 @@
 	padding: 0 2px;
 	margin-right: 5px;
 	min-width: 40px;
-	border: 1px groove threedface;
-	background-color: rgb(240, 240, 240);
-	color: gray;
 }

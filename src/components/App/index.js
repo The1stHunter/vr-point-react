@@ -28,7 +28,7 @@ class App extends React.Component {
 
 	// Перключение вкладок
 	handlerChangeMainNav(e) {
-		let link = e.target;
+		let link = e.target.closest('li');
 		let main = link.dataset.link;
 		if (!main) { return; } // Пользлватель нажал на ul, а не на li
 		this.setState({
@@ -84,7 +84,7 @@ class App extends React.Component {
 		});
 	}
 
-	// Обработка клика по форме
+	// Обработка клика по календарю
 	handlerChangeCalendar(e) {
 		let target = e.target;
 		switch (target.className) {

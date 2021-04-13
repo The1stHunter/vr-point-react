@@ -1,6 +1,6 @@
 import React from 'react';
 import Calendar from '../CalendarFold/Calendar';
-import SalaryFieldset from '../SalaryFieldset';
+import Salary from '../Salary';
 import './index.css';
 
 
@@ -58,7 +58,17 @@ function MainMap(props) {
 	// 	});
 	// }
 
+	let button;
+	if (!props.timetable) {
+		button = (
+			<div>
+				<button type='submit'>Отправить пожелания</button>
+			</div>
+		);
+	}
+
 	return (
+
 		<main className='Main'>
 			<Calendar
 				nextMonth={props.nextMonth}
@@ -73,7 +83,10 @@ function MainMap(props) {
 				timetable={props.timetable}
 				allwaysClean={props.alwaysClean}
 			/>
-			<SalaryFieldset salary={props.salary} />
+			<div className="bottomPanel">
+				<Salary salary={props.salary} />
+				{button}
+			</div>
 		</main>
 	);
 }

@@ -10,13 +10,18 @@
 	line-height: 43px;
 
 	color: #4E1363;
+
+	height: 100%;
 }
 
 .Navigation li {
 	padding: 4px;
-	padding-bottom: 0;
 	cursor: pointer;
 	flex-grow: 1;
 	flex-shrink: 1;
 	margin-bottom: -4px;
+	text-align: center;
+
+	display: flex;
+	align-items: center;
 }
