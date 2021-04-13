@@ -10,7 +10,7 @@ class App extends React.Component {
 		super(props);
 
 		this.state = {
-			main: 'timetable',
+			main: 'map',
 			title: 'График',
 		}
 
@@ -31,10 +31,10 @@ class App extends React.Component {
 		let header = (<Header onClickNav={this.handlerChangeMainNav} main={this.state.main} />);
 		switch (this.state.main) {
 			case 'map':
-				main = (<MainMap isAdmin={this.state.isAdmin} />);
+				main = (<MainMap />);
 				break;
 			case 'timetable':
-				main = (<MainTimetable login={this.state.login} />);
+				main = (<MainTimetable />);
 				break;
 			default:
 				break;

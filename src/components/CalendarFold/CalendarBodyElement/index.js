@@ -4,28 +4,27 @@ import './index.css';
 /**
  * Ячейка календаря
  * props = {date, - дата в ячейке
- * dayInfo{
  *  selectedWork, - выбран ли рабочий дни
  *  selectedClean, - выбран ли день уборки
- *	disabledWork, - disabled ли рабочий дни
- *	disabledClean - disabled ли день уборки
- *		onClick
-}} - активна ли ячейка;
+ *  today - является ли день сегодняшним
+ *  readonly - является ли дата readonly
+}
  */
 function CalendarBodyElement(props) {
+	let className = 'CalendarBodyElement ' + (props.today ? 'today' : '');
+	let hiddenCleanClass = !props.selectedWork ? 'hidden' : ''; // когда день не выбран как рабочий, убираться нельзя
+
 	return (
-		<div className='CalendarBodyElement' >
+		<div className={className} >
 			<input
-				type='checkbox'
-				id={'date-checkbox-' + props.date}
-				hidden
-				disabled={props.dayInfo.disabledWork}
-				checked={props.dayInfo.selectedWork}
-				className='date-checkbox'
-				data-date={props.date}
-				onChange={props.onChange}
-				readOnly={props.timetable}
-				onClick={props.onClick}
+				type='checkbox' // тип
+				id={'date-checkbox-' + props.date} // id для label
+				hidden // скрытое, так как нажатие происходит по label
+				checked={props.selectedWork} // выбрана ли дата
+				className='date-checkbox' // имя класса, испльзуется в css
+				data-date={props.date} // дата соответствующая этому checkbox
+				readOnly={props.readonly} // во вкладке график нельзя ничего редактировать, как и прошедшие дни
+				onChange={!props.readonly ? props.onChange : null}
 			/>
 
 			<label
@@ -34,23 +33,21 @@ function CalendarBodyElement(props) {
 			>
 				{props.date}
 			</label>
-
+			<span className='todaySpan'>{props.today ? 'сегодня' : ''}</span>
 			<input
 				type='checkbox'
 				id={'cleaning-checkbox-' + props.date}
 				hidden
-				disabled={props.dayInfo.disabledClean}
-				checked={props.dayInfo.selectedClean}
+				checked={props.selectedClean}
 				className='cleaning-checkbox'
 				data-date={props.date}
+				readOnly={props.readonly}
 				onChange={props.onChange}
-				readOnly={props.timetable}
 			/>
 
 			<label
-				htmlFor={'cleaning-checkbox-' + props.date}
-				className='cleaning-label'>
-				<i className='fas fa-broom'></i>
+				className={hiddenCleanClass + ' cleaning-label'}
+				htmlFor={'cleaning-checkbox-' + props.date} >
 			</label>
 		</div>
 	);

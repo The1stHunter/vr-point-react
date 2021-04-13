@@ -1,5 +1,5 @@
 import React from 'react';
-import CalendarFieldset from '../CalendarFold/CalendarFieldset';
+import Calendar from '../CalendarFold/Calendar';
 import SalaryFieldset from '../SalaryFieldset';
 import './index.css';
 
@@ -18,7 +18,6 @@ class MainMap extends React.Component {
 			calendarInfo: cashedCreateCalendarProps(now.getMonth(), now.getFullYear()),
 			salary: this.countSalary(cashedCreateCalendarProps(now.getMonth(), now.getFullYear()).days),
 			alwaysClean: false,
-			weekdaysChecked: Array(7).fill(false),
 		}
 
 		this.nextMonth = this.nextMonth.bind(this);
@@ -111,9 +110,6 @@ class MainMap extends React.Component {
 					} else {
 						newState.calendarInfo.days[index].disabledClean = true;
 						newState.calendarInfo.days[index].selectedClean = false;
-						// Если был выбран день недели, то выключаем его
-						let weekday = (new Date(newState.calendarInfo.year, newState.calendarInfo.month, index + 1).getDay() || 7) - 1;
-						newState.weekdaysChecked[weekday] = false;
 					}
 					newState.salary = this.countSalary(newState.calendarInfo.days);
 					return newState;
@@ -180,15 +176,16 @@ class MainMap extends React.Component {
 	render() {
 		return (
 			<main className='Main'>
-				<CalendarFieldset
-					calendarInfo={this.state.calendarInfo}
+				<Calendar
 					nextMonth={this.nextMonth}
 					prevMonth={this.prevMonth}
 					onChangeCalendar={this.handlerChangeCalendar}
 					onChangeAlwaysClean={this.handlerChangeAlwaysClean}
-					onChangeCalendarHeader={this.handlerChangeCalendarHeader}
-					weekdaysChecked={this.state.weekdaysChecked}
-					isAdmin={this.props.isAdmin}
+					daysBefore={this.state.calendarInfo.daysBefore}
+					daysAfter={this.state.calendarInfo.daysAfter}
+					days={this.state.calendarInfo.days}
+					year={this.state.calendarInfo.year}
+					month={this.state.calendarInfo.month}
 				/>
 				<SalaryFieldset salary={this.state.salary} />
 			</main>
@@ -211,22 +208,18 @@ function createCalendarProps(month, year) {
 	let selectedWork = []; //TODO: запрос к серверу
 	let selectedClean = []; //TODO: запрос к серверу
 
-	let objectDays = days.map(value => {
+	this.month = month;
+	this.year = year;
+	this.daysBefore = (new Date(year, month, 1).getDay() || 7) - 1;
+	this.daysAfter = 7 - (new Date(year, month + 1, 0).getDay() || 7);
+	this.days = days.map(value => {
 		return {
 			selectedWork: selectedWork.includes(value),
 			selectedClean: selectedClean.includes(value),
-			disabledWork: new Date(year, month, value + 1) <= new Date(), // Нельзя изменять прошедшие дни
-			disabledClean: (new Date(year, month, value + 1) <= new Date()) || !selectedWork.includes(value),
-		}
+			readonly: new Date(year, month, value + 1) <= new Date(), // Нельзя изменять прошедшие дни
+			today: (new Date().getFullYear() === year && new Date().getMonth() === month && new Date().getDate() === value + 1),
+		};
 	});
-
-	return {
-		month: month,
-		year: year,
-		daysBefore: (new Date(year, month, 1).getDay() || 7) - 1,
-		daysAfter: 7 - (new Date(year, month + 1, 0).getDay() || 7),
-		days: objectDays,
-	}
 }
 
 
@@ -236,7 +229,7 @@ function cashedDecorator(f) {
 	return function () {
 		let key = createKey(...arguments);
 		if (!cash.has(key)) {
-			cash.set(key, f(...arguments));
+			cash.set(key, new f(...arguments));
 		}
 		return cash.get(key);
 	}

@@ -1,8 +1,9 @@
 .CalendarButton {
 	width: 35px;
 	height: 35px;
-	background-color: #E1CFD3;
+	color: #4E1363;
+	background-color: inherit;
 	font-size: 16px;
-	border-radius: 10px;
+	border: none;
 	cursor: pointer;
 }

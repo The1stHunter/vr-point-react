@@ -1,6 +1,8 @@
 .CalendarBodyElement {
-	text-align: center;
+	width: auto;
+	height: 90px;
 	position: relative;
+	overflow: hidden; /* label очень любит вылезать за границы */
 }
 
 .CalendarBodyElement label {
@@ -8,21 +10,54 @@
 	display: block;
 }
 
+.date-label {
+	width: inherit;
+	height: inherit;
+	padding-top: 10px;
+	padding-left: 10px;
+
+	font-size: 20px;
+}
+
 .cleaning-label {
-	display: inline;
 	position: absolute;
 	right: 2px;
-	top: 0;
+	bottom: 10px;
+	right: 10px;
+	
+	width: 40px;
+	height: 40px;
+	background: url('./cleaning-gray.svg');
+	background-size: 40px 40px;
+}
+
+.today {
+	border: 2px solid #600580 !important;
+	height: 92px;
+	margin-bottom: -2px;
+	margin-right: -2px;
+}
+
+.todaySpan {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	font-size: 16px;
+}
+
+.hidden {
+	visibility: hidden;
 }
 
 .CalendarBodyElement input:disabled + label {
 	color: lightgray;
 }
 
-.CalendarBodyElement input:checked + label {
-	background-color: lightgreen;
+.CalendarBodyElement input:checked + label.date-label {
+	background: rgba(96, 5, 128, 0.1);
 }
 
-.CalendarBodyElement input:checked + .cleaning-label {
-	background-color: green;
+.CalendarBodyElement input:checked + label.cleaning-label {
+	background: url('./cleaning-black.svg');
+	background-size: 40px 40px;
 }
