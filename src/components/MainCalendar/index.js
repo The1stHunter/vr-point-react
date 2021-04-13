@@ -7,121 +7,15 @@ import './index.css';
 /**
  * props = {
  * timetable - ture: сейчас открыто рассписание, false: сейчас открыта карта возможностей
+ * salary - зарплата
+ * calendarInfo 
+ * nextMonth, prevMonth
+ * alwaysClean
+ * handlerChangeCalendar
+ * handlerChangeAlwaysClean
  * }
  */
-class MainMap extends React.Component {
-	constructor(props) {
-		super(props);
-
-		let now = new Date();
-		this.state = {
-			calendarInfo: cashedCreateCalendarProps(now.getMonth(), now.getFullYear()),
-			salary: this.countSalary(cashedCreateCalendarProps(now.getMonth(), now.getFullYear()).days),
-			alwaysClean: false,
-			timetable: props.timetable,
-		}
-
-		this.nextMonth = this.nextMonth.bind(this);
-		this.prevMonth = this.prevMonth.bind(this);
-		this.handlerChangeCalendar = this.handlerChangeCalendar.bind(this);
-		this.handlerChangeAlwaysClean = this.handlerChangeAlwaysClean.bind(this);
-		// this.handlerChangeCalendarHeader = this.handlerChangeCalendarHeader.bind(this);
-	}
-
-	// Изменение checkbox уборки (правый верхний угол)
-	handlerChangeAlwaysClean(e) {
-		this.setState((state) => {
-			let newState = Object.assign({}, state);
-			newState.alwaysClean = !state.alwaysClean;
-
-			if (newState.alwaysClean) {
-				newState.calendarInfo.days = state.calendarInfo.days.map(day => {
-					let newDay = Object.assign({}, day);
-					if (newDay.selectedWork && !newDay.readonly) { newDay.selectedClean = true; }
-					return newDay;
-				});
-			}
-
-			newState.salary = this.countSalary(newState.calendarInfo.days);
-			return newState;
-		});
-	}
-
-	// Функции переключения месяца
-	nextMonth() {
-		this.setState(function (state, props) {
-			let { month, year } = state.calendarInfo;
-			if (++month === 12) {
-				month = 0;
-				year++;
-			}
-			let newState = {};
-			newState.calendarInfo = cashedCreateCalendarProps(month, year);
-			newState.salary = this.countSalary(newState.calendarInfo.days);
-			return newState;
-		});
-	}
-
-	prevMonth() {
-		this.setState(function (state, props) {
-			let { month, year } = state.calendarInfo;
-			if (--month === -1) {
-				month = 11;
-				year--;
-			}
-			let newState = {};
-			newState.calendarInfo = cashedCreateCalendarProps(month, year);
-			newState.salary = this.countSalary(newState.calendarInfo.days);
-			return newState;
-		});
-	}
-
-	// Подсчёт зарплаты
-	countSalary(days) {
-		const workSalary = 1500; // Возможно потом получать данные с сервера
-		const cleanSalary = 200;
-		return days.reduce((previous, current) => {
-			return previous + current.selectedWork * workSalary + current.selectedClean * cleanSalary;
-		}, 0);
-	}
-
-	// Обработка клика по форме
-	handlerChangeCalendar(e) {
-		let target = e.target;
-		switch (target.className) {
-			case 'date-checkbox':
-				this.setState((state, props) => {
-					let newState = Object.assign({}, state);
-					let index = target.dataset.date - 1;
-					newState.calendarInfo.days[index].selectedWork = !newState.calendarInfo.days[index].selectedWork;
-					if (newState.calendarInfo.days[index].selectedWork) {
-						newState.calendarInfo.days[index].disabledClean = false;
-						if (newState.alwaysClean) {
-							newState.calendarInfo.days[index].selectedClean = true;
-							newState.calendarInfo.days[index].disabledClean = true;
-						}
-					} else {
-						newState.calendarInfo.days[index].disabledClean = true;
-						newState.calendarInfo.days[index].selectedClean = false;
-					}
-					newState.salary = this.countSalary(newState.calendarInfo.days);
-					return newState;
-				});
-				break;
-			case 'cleaning-checkbox':
-				this.setState((state, props) => {
-					let newState = Object.assign({}, state);
-					let index = target.dataset.date - 1;
-					newState.calendarInfo.days[index].selectedClean = !newState.calendarInfo.days[index].selectedClean;
-					newState.salary = this.countSalary(newState.calendarInfo.days);
-					return newState;
-				});
-				break;
-			default:
-				return;
-		}
-	}
-
+function MainMap(props) {
 	// // При клике по названию дня недели выбирает все дни это дня недели 
 	// handlerChangeCalendarHeader(e) {
 	// 	let target = e.target;
@@ -164,74 +58,27 @@ class MainMap extends React.Component {
 	// 	});
 	// }
 
-
-
-	render() {
-		return (
-			<main className='Main'>
-				<Calendar
-					nextMonth={this.nextMonth}
-					prevMonth={this.prevMonth}
-					onChangeCalendar={this.handlerChangeCalendar}
-					onChangeAlwaysClean={this.handlerChangeAlwaysClean}
-					daysBefore={this.state.calendarInfo.daysBefore}
-					daysAfter={this.state.calendarInfo.daysAfter}
-					days={this.state.calendarInfo.days}
-					year={this.state.calendarInfo.year}
-					month={this.state.calendarInfo.month}
-					timetable={this.props.timetable}
-					allwaysClean={this.state.alwaysClean}
-				/>
-				<SalaryFieldset salary={this.state.salary} />
-			</main>
-		);
-	}
+	return (
+		<main className='Main'>
+			<Calendar
+				nextMonth={props.nextMonth}
+				prevMonth={props.prevMonth}
+				onChangeCalendar={props.handlerChangeCalendar}
+				onChangeAlwaysClean={props.handlerChangeAlwaysClean}
+				daysBefore={props.calendarInfo.daysBefore}
+				daysAfter={props.calendarInfo.daysAfter}
+				days={props.calendarInfo.days}
+				year={props.calendarInfo.year}
+				month={props.calendarInfo.month}
+				timetable={props.timetable}
+				allwaysClean={props.alwaysClean}
+			/>
+			<SalaryFieldset salary={props.salary} />
+		</main>
+	);
 }
 
 export default MainMap;
 
 
-/**
- * 
- * @param {Number} month 
- * @param {Number} year
- * Создаём объект содержащий всю информацию о календаре
- */
-function createCalendarProps(month, year, timetable) {
-	let maxDate = new Date(year, month + 1, 0).getDate(); //Полседнее число месяца (кол-во дней в месяце)
-	let days = Array(maxDate).fill(null).map((value, index) => index); // список дней месяца
-	let selectedWork = [1, 2, 6, 8, 9, 13, 15, 16, 20, 22, 23, 27, 29, 30]; //TODO: запрос к серверу
-	let selectedClean = [2, 9, 16, 23, 30]; //TODO: запрос к серверу
 
-	this.month = month;
-	this.year = year;
-	this.daysBefore = (new Date(year, month, 1).getDay() || 7) - 1;
-	this.daysAfter = 7 - (new Date(year, month + 1, 0).getDay() || 7);
-	this.days = days.map(value => {
-		return {
-			selectedWork: selectedWork.includes(value + 1),
-			selectedClean: selectedClean.includes(value + 1),
-			readonly: new Date(year, month, value + 1) <= new Date() || timetable, // Нельзя изменять прошедшие дни и график
-			today: (new Date().getFullYear() === year && new Date().getMonth() === month && new Date().getDate() === value + 1),
-		};
-	});
-}
-
-
-function cashedDecorator(f) {
-	let cash = new Map();
-
-	return function () {
-		let key = createKey(...arguments);
-		if (!cash.has(key)) {
-			cash.set(key, new f(...arguments));
-		}
-		return cash.get(key);
-	}
-
-	function createKey(...args) {
-		return args.join('-');
-	}
-}
-
-const cashedCreateCalendarProps = cashedDecorator(createCalendarProps);

@@ -17,9 +17,10 @@ import './index.css';
  * onChangeCalendar - функция обрабатывающая изменения в календаре
  * onChangeAlwaysClean - функция обрабатывающая изменения allwaysCleanCheckbox
  * allwaysClean - состояния флага allwaysClean
+ * timetable - сейчас открыта вкладка график
  * }
  */
-function CalendarFieldset(props) {
+function Calendar(props) {
 
 	return (
 		<div className="CalendarFieldset">
@@ -37,9 +38,10 @@ function CalendarFieldset(props) {
 				days={props.days}
 				allwaysClean={props.allwaysClean}
 				onChange={props.onChangeCalendar}
+				timetable={props.timetable}
 			/>
 		</div>
 	);
 }
 
-export default CalendarFieldset;
+export default Calendar;

@@ -18,7 +18,6 @@ import './index.css';
  */
 const CalendarBody = (props) => {
 
-
 	return (<div className='CalendarBody'>
 		{[...Array(props.daysBefore)].map((item, index) => <div key={index}></div>)}
 
@@ -30,7 +29,7 @@ const CalendarBody = (props) => {
 					selectedWork={item.selectedWork}
 					selectedClean={item.selectedClean}
 					today={item.today}
-					readonly={item.readonly}
+					readonly={item.readonly || props.timetable}
 					allwaysClean={props.allwaysClean}
 					onChange={props.onChange}
 				/>
