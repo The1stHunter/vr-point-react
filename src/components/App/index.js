@@ -2,6 +2,7 @@ import React from 'react';
 import MainMap from '../MainMap';
 import MainTimetable from '../MainTimetable';
 import Header from '../HeaderFold/Header';
+import LoginForm from '../LoginForm';
 import { Helmet } from 'react-helmet';
 import './index.css';
 
@@ -10,8 +11,8 @@ class App extends React.Component {
 		super(props);
 
 		this.state = {
-			main: 'timetable',
-			title: 'График',
+			main: 'login',
+			title: 'Вход',
 			name: '',
 			surname: '',
 			isAdmin: '',
@@ -40,8 +41,8 @@ class App extends React.Component {
 			return;
 		}
 		this.setState({
-			main: 'map',
-			title: 'Карта возможности',
+			main: 'timetable',
+			title: 'График',
 			login: user.login,
 			name: user.name,
 			surname: user.surname,
@@ -62,6 +63,9 @@ class App extends React.Component {
 				header = (<Header onClickNav={this.handlerChangeMainNav} user={this.state.name + ' ' + this.state.surname} />);
 				main = (<MainTimetable login={this.state.login} />);
 				break;
+			case 'login':
+				main = (<LoginForm onSumbit={this.handletSubmitLogin} />);
+				break;
 			default:
 				break;
 		}
@@ -76,3 +80,26 @@ class App extends React.Component {
 }
 
 export default App;
+
+
+// TODO:
+// NB!!!!!
+// Все функции являются заглушками, так как серверная часть ещё не готова
+
+function login(username, password) {
+	if (username === 'guest' && password === '123') {
+		return {
+			login: 'guest',
+			name: 'Константин',
+			surname: 'Шилов',
+			admin: false,
+		}
+	} else if (username === 'admin' && password === 'admin') {
+		return {
+			login: 'admin',
+			name: 'Анна',
+			surname: 'Жданова',
+			admin: true,
+		}
+	}
+}
