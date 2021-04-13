@@ -1,5 +1,6 @@
 import React from 'react';
-import './index.css'
+import './index.css';
+import logo from './vr-logo.png';
 
 /**
  * Название компании
@@ -7,7 +8,7 @@ import './index.css'
 function Logo(props) {
 	return (
 		<div className='Logo'>
-			<h1>VR Point</h1>
+			<img src={logo} alt='logo'></img>
 		</div>
 	);
 }

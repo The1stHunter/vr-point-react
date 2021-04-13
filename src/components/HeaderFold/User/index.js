@@ -8,8 +8,7 @@ import './index.css';
 function User(props) {
 	return (
 		<div className='User'>
-			<div className='user-name'>{props.user}</div>
-			<div className='avatar'></div>
+			<div className='Avatar'></div>
 		</div>
 	);
 }

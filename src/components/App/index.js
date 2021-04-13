@@ -53,17 +53,16 @@ class App extends React.Component {
 
 	render() {
 		let main;
-		let header;
+		let header = (<Header onClickNav={this.handlerChangeMainNav} user={this.state.name + ' ' + this.state.surname} main={this.state.main} />);
 		switch (this.state.main) {
 			case 'map':
-				header = (<Header onClickNav={this.handlerChangeMainNav} user={this.state.name + ' ' + this.state.surname} />);
 				main = (<MainMap isAdmin={this.state.isAdmin} />);
 				break;
 			case 'timetable':
-				header = (<Header onClickNav={this.handlerChangeMainNav} user={this.state.name + ' ' + this.state.surname} />);
 				main = (<MainTimetable login={this.state.login} />);
 				break;
 			case 'login':
+				header = null;
 				main = (<LoginForm onSumbit={this.handletSubmitLogin} />);
 				break;
 			default:

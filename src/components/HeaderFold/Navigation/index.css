@@ -1,16 +1,24 @@
 .Navigation {
-	padding: 0 8px;
+	padding: 0;
 	margin: 0;
 	display: flex;
-	flex-wrap: wrap;
-	justify-content: flex-start;
+	flex-wrap: no-wrap;
+	justify-content: space-between;
 	list-style: none;
+
+	font-family: 'Russo One', sans-serif;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 36px;
+	line-height: 43px;
+
+	color: #4E1363;
 }
 
 .Navigation li {
 	padding: 4px;
-	background-color: #E1CFD3;
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
+	padding-bottom: 0;
 	cursor: pointer;
+	flex-grow: 1;
+	flex-shrink: 1;
 }

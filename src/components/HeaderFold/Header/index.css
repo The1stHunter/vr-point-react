@@ -1,7 +1,16 @@
 .Header {
-	background-color: #B77BBD;
+	background-color: white;
 	padding: 8px;
 	padding-bottom: 0;
 	display: grid;
-	grid-template-columns: 3fr 1fr;
+	grid-template-columns: 2fr 10fr 1fr;
+	align-items: flex-end;
+}
+
+.Header > * {
+	border-bottom: 4px solid rgba(96, 5, 128, 0.3);
+}
+
+.Header .this {
+	border-bottom: 4px solid #600580;
 }
