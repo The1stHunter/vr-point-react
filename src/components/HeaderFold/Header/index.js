@@ -8,7 +8,6 @@ import './index.css'
  * Header
  * props = {
  * onClickNav - обработчик клика по навигации
- * user - имя и фамилия пользователя
  * main - текущая вкладка
  * }
  */
@@ -17,7 +16,7 @@ function Header(props) {
 		<header className='Header'>
 			<Logo />
 			<Navigation onClick={props.onClickNav} main={props.main} />
-			<User user={props.user} />
+			<User />
 		</header>
 	);
 }

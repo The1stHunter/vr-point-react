@@ -2,7 +2,6 @@ import React from 'react';
 import MainMap from '../MainMap';
 import MainTimetable from '../MainTimetable';
 import Header from '../HeaderFold/Header';
-import LoginForm from '../LoginForm';
 import { Helmet } from 'react-helmet';
 import './index.css';
 
@@ -11,16 +10,11 @@ class App extends React.Component {
 		super(props);
 
 		this.state = {
-			main: 'login',
-			title: 'Вход',
-			name: '',
-			surname: '',
-			isAdmin: '',
-			login: '',
+			main: 'timetable',
+			title: 'График',
 		}
 
 		this.handlerChangeMainNav = this.handlerChangeMainNav.bind(this);
-		this.handletSubmitLogin = this.handletSubmitLogin.bind(this);
 	}
 
 	handlerChangeMainNav(e) {
@@ -32,38 +26,15 @@ class App extends React.Component {
 		})
 	}
 
-	handletSubmitLogin(e) {
-		e.preventDefault();
-		let form = e.target.form;
-		let user = login(form[0].value, form[1].value);
-		if (!user) {
-			alert('Неверный логин или пароль!');
-			return;
-		}
-		this.setState({
-			main: 'timetable',
-			title: 'График',
-			login: user.login,
-			name: user.name,
-			surname: user.surname,
-			isAdmin: user.admin,
-		})
-
-	}
-
 	render() {
 		let main;
-		let header = (<Header onClickNav={this.handlerChangeMainNav} user={this.state.name + ' ' + this.state.surname} main={this.state.main} />);
+		let header = (<Header onClickNav={this.handlerChangeMainNav} main={this.state.main} />);
 		switch (this.state.main) {
 			case 'map':
 				main = (<MainMap isAdmin={this.state.isAdmin} />);
 				break;
 			case 'timetable':
 				main = (<MainTimetable login={this.state.login} />);
-				break;
-			case 'login':
-				header = null;
-				main = (<LoginForm onSumbit={this.handletSubmitLogin} />);
 				break;
 			default:
 				break;
@@ -79,26 +50,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-
-// TODO:
-// NB!!!!!
-// Все функции являются заглушками, так как серверная часть ещё не готова
-
-function login(username, password) {
-	if (username === 'guest' && password === '123') {
-		return {
-			login: 'guest',
-			name: 'Константин',
-			surname: 'Шилов',
-			admin: false,
-		}
-	} else if (username === 'admin' && password === 'admin') {
-		return {
-			login: 'admin',
-			name: 'Анна',
-			surname: 'Жданова',
-			admin: true,
-		}
-	}
-}

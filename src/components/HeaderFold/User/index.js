@@ -2,7 +2,7 @@ import React from 'react';
 import './index.css';
 
 /**
- * props = {user - имя и фамилия пользователя
+ * props = {
  * }
  */
 function User(props) {
