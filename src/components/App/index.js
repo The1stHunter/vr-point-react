@@ -1,6 +1,7 @@
 import React from 'react';
 import MainCalendar from '../MainCalendar';
 import Header from '../HeaderFold/Header';
+import Change from '../Change';
 import { Helmet } from 'react-helmet';
 import './index.css';
 
@@ -150,6 +151,8 @@ class App extends React.Component {
 			case 'timetable':
 				main = mainCalndar;
 				break;
+			case 'change':
+				main = (<Change />);
 			default:
 				break;
 		}
